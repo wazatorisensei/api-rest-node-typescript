@@ -17,7 +17,7 @@ export const createValidation = validation((getSchema) => ({
   ),
   query: getSchema<IFilter>(
     object().shape({
-      filter: string().required().min(3),
+      filter: string().optional().min(3),
     })
   ),
 }));
