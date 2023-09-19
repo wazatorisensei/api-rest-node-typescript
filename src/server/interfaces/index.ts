@@ -1,10 +1,2 @@
-interface ICities {
-  name: string;
-  state: string;
-}
-
-interface IFilter {
-  filter?: string;
-}
-
-export { ICities, IFilter };
+export * from './interfaces';
+export * from './secretInterfaces';
