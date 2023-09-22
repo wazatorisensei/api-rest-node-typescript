@@ -4,7 +4,7 @@ import { StatusCodes } from 'http-status-codes';
 
 import { validation } from '../../shared/middleware';
 
-import { ICities } from '../../interfaces';
+import { ICities } from '../../types-interface';
 
 import { string, object } from 'yup';
 

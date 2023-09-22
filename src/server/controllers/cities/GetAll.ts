@@ -6,7 +6,7 @@ import { validation } from '../../shared/middleware';
 
 import { string, number, object } from 'yup';
 
-import { IQueryProps } from '../../interfaces';
+import { IQueryProps } from '../../types-interface';
 
 export const getAllValidation = validation((getSchema) => ({
   query: getSchema<IQueryProps>(

@@ -6,7 +6,7 @@ import { validation } from './../../shared/middleware';
 
 import { object, number, string } from 'yup';
 
-import { IBodyProps, IParamProps } from '../../interfaces';
+import { IBodyProps, IParamProps } from '../../types-interface';
 
 export const updateByIdValidation = validation((getSchema) => ({
   body: getSchema<IBodyProps>(

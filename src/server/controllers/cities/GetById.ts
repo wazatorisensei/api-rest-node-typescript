@@ -6,7 +6,7 @@ import { validation } from './../../shared/middleware';
 
 import { object, number } from 'yup';
 
-import { IParamProps } from '../../interfaces';
+import { IParamProps } from '../../types-interface';
 
 export const getByIdValidation = validation((getSchema) => ({
   params: getSchema<IParamProps>(
