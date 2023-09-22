@@ -3,7 +3,7 @@ import { testServer } from '../jest.setup';
 
 describe('City - DeleteById', () => {
   it('Registry delete', async () => {
-    const response = await testServer.post('/cities').send({
+    const response = await testServer.post('/city').send({
       name: 'Rio de Janeiro',
     });
 

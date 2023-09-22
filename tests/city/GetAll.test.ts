@@ -3,7 +3,7 @@ import { testServer } from '../jest.setup';
 
 describe('City - GetAll', () => {
   it('Get all registry', async () => {
-    const response = await testServer.post('/cities').send({
+    const response = await testServer.post('/city').send({
       name: 'Rio de Janeiro',
     });
 
