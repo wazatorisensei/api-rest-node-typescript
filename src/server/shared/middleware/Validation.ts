@@ -2,7 +2,7 @@ import { StatusCodes } from 'http-status-codes';
 
 import { ValidationError } from 'yup';
 
-import { TValidation, TProperty } from '../../types';
+import { TValidation, TProperty } from '../../types-type';
 
 export const validation: TValidation =
   (getAllSchemas) => async (req, res, next) => {

@@ -2,7 +2,7 @@ import { string, object } from 'yup';
 
 import { validation } from '../../shared/middleware';
 
-import { ICities, IFilter } from './../../interfaces';
+import { ICities, IFilter } from '../../types-interface';
 
 const createValidation = validation((getSchema) => ({
   body: getSchema<ICities>(
