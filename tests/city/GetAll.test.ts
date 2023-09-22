@@ -1,7 +1,7 @@
 import { StatusCodes } from 'http-status-codes';
 import { testServer } from '../jest.setup';
 
-describe('Cities - GetAll', () => {
+describe('City - GetAll', () => {
   it('Get all registry', async () => {
     const response = await testServer.post('/cities').send({
       name: 'Rio de Janeiro',
@@ -9,7 +9,7 @@ describe('Cities - GetAll', () => {
 
     expect(response.statusCode).toEqual(StatusCodes.CREATED);
 
-    const responseSearchAll = await testServer.get('/cities').send();
+    const responseSearchAll = await testServer.get('/city').send();
 
     expect(Number(responseSearchAll.header['x-total-count'])).toBeGreaterThan(
       0
