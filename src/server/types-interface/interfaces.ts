@@ -1,6 +1,6 @@
-interface ICities {
-  name: string;
-}
+import { ICity } from '../database/models';
+
+interface IBodyProps extends Omit<ICity, 'id'> {} // Omit<ICity, 'id' | 'name'> => para omitir o name
 
 interface IFilter {
   filter?: string;
@@ -20,4 +20,4 @@ interface IBodyProps {
   name: string;
 }
 
-export { ICities, IFilter, IQueryProps, IParamProps, IBodyProps };
+export { IBodyProps, IFilter, IQueryProps, IParamProps };
