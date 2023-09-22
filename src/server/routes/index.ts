@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { StatusCodes } from 'http-status-codes';
 
-import { CitiesController } from './../controllers';
+import { CityController } from './../controllers';
 import { WellController } from '../controllers/well';
 
 const router = Router();
@@ -10,35 +10,27 @@ router.get('/', (_, res) => {
   return res.status(StatusCodes.OK).send('Server is running !');
 });
 
-router.get(
-  '/cities',
-  CitiesController.getAllValidation,
-  CitiesController.getAll
-);
+router.get('/city', CityController.getAllValidation, CityController.getAll);
 
 router.get(
-  '/cities/:id',
-  CitiesController.getByIdValidation,
-  CitiesController.getById
+  '/city/:id',
+  CityController.getByIdValidation,
+  CityController.getById
 );
 
 router.put(
-  '/cities/:id',
-  CitiesController.updateByIdValidation,
-  CitiesController.updateById
+  '/city/:id',
+  CityController.updateByIdValidation,
+  CityController.updateById
 );
 
 router.delete(
-  '/cities/:id',
-  CitiesController.deleteByIdValidation,
-  CitiesController.deleteById
+  '/city/:id',
+  CityController.deleteByIdValidation,
+  CityController.deleteById
 );
 
-router.post(
-  '/cities',
-  CitiesController.createValidation,
-  CitiesController.create
-);
+router.post('/city', CityController.createValidation, CityController.create);
 
 router.post(
   '/overview',
