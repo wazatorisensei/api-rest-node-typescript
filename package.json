@@ -29,9 +29,14 @@
   "scripts": {
     "start": "ts-node-dev ./src/index.ts",
     "build": "tsc",
+    "postinstall": "tsc",
+    "production": "node ./build/index.js",
     "delete-build": "rimraf build",
     "delete-coverage": "rimraf coverage",
     "start-build": "node ./build/index.js",
     "test:jest": "jest"
+  },
+  "engines": {
+    "node": "16.x"
   }
 }
