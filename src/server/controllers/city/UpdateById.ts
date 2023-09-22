@@ -2,13 +2,18 @@ import { Request, Response } from 'express';
 
 import { StatusCodes } from 'http-status-codes';
 
-import { validation } from './../../shared/middleware';
+import { validation } from '../../shared/middleware';
 
-import { object, number } from 'yup';
+import { object, number, string } from 'yup';
 
-import { IParamProps } from '../../types-interface';
+import { IBodyProps, IParamProps } from '../../types-interface';
 
-export const deleteByIdValidation = validation((getSchema) => ({
+export const updateByIdValidation = validation((getSchema) => ({
+  body: getSchema<IBodyProps>(
+    object().shape({
+      name: string().required().min(3),
+    })
+  ),
   params: getSchema<IParamProps>(
     object().shape({
       id: number().integer().required().moreThan(0),
@@ -16,7 +21,10 @@ export const deleteByIdValidation = validation((getSchema) => ({
   ),
 }));
 
-export const deleteById = async (req: Request<IParamProps>, res: Response) => {
+export const updateById = async (
+  req: Request<IParamProps, {}, IBodyProps>,
+  res: Response
+) => {
   if (Number(req.params.id) === 99999)
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
       errors: { default: 'Register not found !' },

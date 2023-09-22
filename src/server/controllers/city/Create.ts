@@ -4,18 +4,21 @@ import { StatusCodes } from 'http-status-codes';
 
 import { validation } from '../../shared/middleware';
 
-import { ICities } from '../../types-interface';
+import { IBodyProps } from '../../types-interface';
 
 import { string, object } from 'yup';
 
 export const createValidation = validation((getSchema) => ({
-  body: getSchema<ICities>(
+  body: getSchema<IBodyProps>(
     object().shape({
       name: string().required().min(3),
     })
   ),
 }));
 
-export const create = async (req: Request<{}, {}, ICities>, res: Response) => {
+export const create = async (
+  _req: Request<{}, {}, IBodyProps>,
+  res: Response
+) => {
   return res.status(StatusCodes.CREATED).json(1);
 };
