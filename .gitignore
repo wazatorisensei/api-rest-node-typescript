@@ -6,3 +6,4 @@ build
 coverage
 src/server/controllers/well/Create.ts
 src/server/controllers/well/index.ts
+.sqlite
