@@ -8,17 +8,28 @@ import { IBodyProps } from '../../types-interface';
 
 import { string, object } from 'yup';
 
+import { ICity } from '../../database/models';
+
+import { CityProvider } from '../../database/providers/city';
+
 export const createValidation = validation((getSchema) => ({
   body: getSchema<IBodyProps>(
     object().shape({
-      name: string().required().min(3),
+      name: string().required().min(3).max(150),
     })
   ),
 }));
 
-export const create = async (
-  _req: Request<{}, {}, IBodyProps>,
-  res: Response
-) => {
-  return res.status(StatusCodes.CREATED).json(1);
+export const create = async (req: Request<{}, {}, ICity>, res: Response) => {
+  const result = await CityProvider.create(req.body);
+
+  if (result instanceof Error) {
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      errors: {
+        default: result.message,
+      },
+    });
+  }
+
+  return res.status(StatusCodes.CREATED).json(result);
 };

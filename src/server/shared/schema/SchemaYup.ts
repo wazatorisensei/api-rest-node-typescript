@@ -2,10 +2,10 @@ import { string, object } from 'yup';
 
 import { validation } from '../../shared/middleware';
 
-import { ICities, IFilter } from '../../types-interface';
+import { IBodyProps, IFilter } from '../../types-interface';
 
 const createValidation = validation((getSchema) => ({
-  body: getSchema<ICities>(
+  body: getSchema<IBodyProps>(
     object().shape({
       name: string().required().min(3),
       state: string().required().min(3),

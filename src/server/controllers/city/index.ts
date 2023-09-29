@@ -11,5 +11,3 @@ export const CityController = {
   ...updateById,
   ...deleteById,
 };
-
-CityController.create;
