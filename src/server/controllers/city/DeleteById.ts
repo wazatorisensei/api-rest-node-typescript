@@ -8,6 +8,8 @@ import { object, number } from 'yup';
 
 import { IParamProps } from '../../types-interface';
 
+import { CityProvider } from '../../database/providers/city';
+
 export const deleteByIdValidation = validation((getSchema) => ({
   params: getSchema<IParamProps>(
     object().shape({
@@ -17,9 +19,19 @@ export const deleteByIdValidation = validation((getSchema) => ({
 }));
 
 export const deleteById = async (req: Request<IParamProps>, res: Response) => {
-  if (Number(req.params.id) === 99999)
-    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-      errors: { default: 'Register not found !' },
+  if (!req.params.id) {
+    return res.status(StatusCodes.BAD_REQUEST).json({
+      errors: { default: 'The "id" parameter needs to be informed.' },
     });
+  }
+
+  const result = await CityProvider.deleteById(req.params.id);
+
+  if (result instanceof Error) {
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      errors: { default: result.message },
+    });
+  }
+
   return res.status(StatusCodes.NO_CONTENT).send();
 };

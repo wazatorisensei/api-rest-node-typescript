@@ -7,6 +7,7 @@ interface IFilter {
 }
 
 interface IQueryProps {
+  id?: number;
   page?: number;
   limit?: number;
   filter?: string;
@@ -16,8 +17,8 @@ interface IParamProps {
   id?: number;
 }
 
-interface IBodyProps {
-  name: string;
-}
+// interface IBodyProps {
+//   name: string;
+// }
 
 export { IBodyProps, IFilter, IQueryProps, IParamProps };

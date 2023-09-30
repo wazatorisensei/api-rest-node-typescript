@@ -7,6 +7,7 @@ import { validation } from '../../shared/middleware';
 import { object, number, string } from 'yup';
 
 import { IBodyProps, IParamProps } from '../../types-interface';
+import { CityProvider } from '../../database/providers/city';
 
 export const updateByIdValidation = validation((getSchema) => ({
   body: getSchema<IBodyProps>(
@@ -25,9 +26,23 @@ export const updateById = async (
   req: Request<IParamProps, {}, IBodyProps>,
   res: Response
 ) => {
-  if (Number(req.params.id) === 99999)
-    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-      errors: { default: 'Register not found !' },
+  if (!req.params.id) {
+    return res.status(StatusCodes.BAD_REQUEST).json({
+      errors: {
+        default: 'The "id" parameter needs to be informed.',
+      },
     });
-  return res.status(StatusCodes.NO_CONTENT).send();
+  }
+
+  const result = await CityProvider.updateById(req.params.id, req.body);
+
+  if (result instanceof Error) {
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      errors: {
+        default: result.message,
+      },
+    });
+  }
+
+  return res.status(StatusCodes.NO_CONTENT).json(result);
 };

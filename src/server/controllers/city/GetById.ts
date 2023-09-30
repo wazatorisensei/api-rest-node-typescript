@@ -8,6 +8,8 @@ import { object, number } from 'yup';
 
 import { IParamProps } from '../../types-interface';
 
+import { CityProvider } from '../../database/providers/city';
+
 export const getByIdValidation = validation((getSchema) => ({
   params: getSchema<IParamProps>(
     object().shape({
@@ -17,12 +19,23 @@ export const getByIdValidation = validation((getSchema) => ({
 }));
 
 export const getById = async (req: Request<IParamProps>, res: Response) => {
-  if (Number(req.params.id) === 99999)
-    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-      errors: { default: 'Register not found !' },
+  if (!req.params.id) {
+    return res.status(StatusCodes.BAD_REQUEST).json({
+      errors: {
+        default: 'The "id" parameter needs to be informed.',
+      },
     });
-  return res.status(StatusCodes.OK).json({
-    id: req.params.id,
-    name: 'Rio de Janeiro',
-  });
+  }
+
+  const result = await CityProvider.getById(req.params.id);
+
+  if (result instanceof Error) {
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      errors: {
+        default: result.message,
+      },
+    });
+  }
+
+  return res.status(StatusCodes.OK).json(result);
 };
