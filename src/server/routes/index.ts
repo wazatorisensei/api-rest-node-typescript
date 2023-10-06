@@ -32,6 +32,8 @@ router.delete(
 
 router.post('/city', CityController.createValidation, CityController.create);
 
+router.head('/city', (req, res) => CityController.getHeaders(req, res));
+
 router.post(
   '/overview',
   WellController.createValidation,

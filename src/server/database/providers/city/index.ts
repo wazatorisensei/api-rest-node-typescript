@@ -4,6 +4,7 @@ import * as getById from './GetById';
 import * as updateById from './UpdateById';
 import * as deleteById from './DeleteById';
 import * as count from './Count';
+import * as getHeaders from './GetHeaders';
 
 export const CityProvider = {
   ...create,
@@ -12,4 +13,5 @@ export const CityProvider = {
   ...updateById,
   ...deleteById,
   ...count,
+  ...getHeaders,
 };

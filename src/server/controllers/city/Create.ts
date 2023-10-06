@@ -31,5 +31,7 @@ export const create = async (req: Request<{}, {}, ICity>, res: Response) => {
     });
   }
 
+  res.setHeader('X-Powered-By', 'By-Wazatori');
+
   return res.status(StatusCodes.CREATED).json(result);
 };

@@ -44,5 +44,7 @@ export const updateById = async (
     });
   }
 
+  res.setHeader('X-Powered-By', 'By-Wazatori');
+
   return res.status(StatusCodes.NO_CONTENT).json(result);
 };

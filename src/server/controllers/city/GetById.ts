@@ -37,5 +37,7 @@ export const getById = async (req: Request<IParamProps>, res: Response) => {
     });
   }
 
+  res.setHeader('X-Powered-By', 'By-Wazatori');
+
   return res.status(StatusCodes.OK).json(result);
 };

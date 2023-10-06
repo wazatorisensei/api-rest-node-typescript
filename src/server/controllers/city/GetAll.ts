@@ -10,6 +10,8 @@ import { IQueryProps } from '../../types-interface';
 
 import { CityProvider } from '../../database/providers/city';
 
+import { CSRFToken, UUIDV4 } from '../../shared/functions';
+
 export const getAllValidation = validation((getSchema) => ({
   query: getSchema<IQueryProps>(
     object().shape({
@@ -48,9 +50,57 @@ export const getAll = async (
     });
   }
 
-  res.setHeader('access-control-expose-headers', 'x-total-count');
+  const token = CSRFToken();
 
-  res.setHeader('x-total-count', count);
+  const session = UUIDV4();
+
+  const global = UUIDV4();
+
+  res.cookie('X-Csrftoken', token, {
+    // domain: 'localhost',
+    // path: '/',
+    // size: '',
+    // sameSite: 'strict',
+    expires: new Date(Date.now() + 24 * 3600000), // 1 day
+    httpOnly: true,
+    secure: true,
+    maxAge: 1000 * 60 * 60 * 24,
+    encode: (e) => e,
+    signed: false,
+  });
+
+  res.setHeader('Access-Control-Expose-Headers', [
+    'X-Total-Count',
+    'X-Csrftoken',
+    'Global-Session-Id',
+    'Session-Id',
+    'Content-Type',
+  ]);
+
+  res.setHeader('Access-Control-Request-Method', ['GET']);
+
+  res.setHeader('X-Powered-By', 'By-Wazatori');
+
+  res.setHeader('Connection', 'Keep-Alive');
+
+  // res.setHeader('Date', '');
+
+  // res.setHeader('Etag', '');
+
+  res.setHeader('Content-Type', 'application/json');
+
+  res.setHeader('Keep-Alive', `timeout=${100}`);
+
+  res.setHeader('X-Total-Count', count);
+
+  res.setHeader('X-Csrftoken', `csrftoken=${token}`);
+
+  res.setHeader('Global-Session-Id', `globalsessionid=${global}`);
+
+  res.setHeader('Session-Id', `sessionid=${session}`);
 
   return res.status(StatusCodes.OK).json(result);
+  // return res
+  //   .status(StatusCodes.CREATED)
+  //   .json({ result, dataToStore: { key: 'teste', value: 'teste' } }); // set localstorage só pode ser feito via client-side
 };
